@@ -1,6 +1,4 @@
 '''Part 1'''
-import os
-os.getcwd()
 
 file = 'input1.txt'
 
@@ -20,12 +18,9 @@ print(count)
 
 '''Part 2'''
 
-count = 0
-
-
 sums = [sum(listed[i:i+3]) for i in range(len(listed))]
 
-#print(sums)
+count = 0
 
 for i in range(len(sums)):
      if sums[i] > sums[i-1]:
