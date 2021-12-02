@@ -1,4 +1,6 @@
 '''Part 1'''
+import os
+os.getcwd()
 
 file = 'input1.txt'
 
@@ -17,3 +19,16 @@ for i in range(len(listed)):
 print(count)
 
 '''Part 2'''
+
+count = 0
+
+
+sums = [sum(listed[i:i+3]) for i in range(len(listed))]
+
+print(sums)
+
+for i in range(len(sums)):
+     if sums[i] > sums[i-1]:
+          count += 1
+
+print(count)
