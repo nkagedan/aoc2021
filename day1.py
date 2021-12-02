@@ -1,13 +1,12 @@
-path_prefix = 'C:\\Users\\nkage\\lpthw\\aoc2021\\'
-file_name = 'input1.txt'
-path = path_prefix + file_name
+'''Part 1'''
 
-with open(path, 'r') as file:
+file = 'input1.txt'
+
+with open(file, 'r') as file:
     data = file.read().strip()
 
 listed = data.splitlines()
-
-len(listed)
+listed = [int(i) for i in listed]
 
 count = 0
 
@@ -16,3 +15,5 @@ for i in range(len(listed)):
           count += 1
 
 print(count)
+
+'''Part 2'''
