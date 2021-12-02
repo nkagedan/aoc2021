@@ -25,7 +25,7 @@ count = 0
 
 sums = [sum(listed[i:i+3]) for i in range(len(listed))]
 
-print(sums)
+#print(sums)
 
 for i in range(len(sums)):
      if sums[i] > sums[i-1]:
