@@ -20,6 +20,8 @@ print(count)
 
 sums = [sum(listed[i:i+3]) for i in range(len(listed))]
 
+listed[1999:2001]
+
 count = 0
 
 for i in range(len(sums)):
