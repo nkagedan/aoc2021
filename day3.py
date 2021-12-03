@@ -12,7 +12,6 @@ df = pd.DataFrame(input_list, columns =['raw_input'])
 
 
 '''Part 1'''
-print(len(input_list))
 
 gamma = ''
 epsilon = ''
@@ -26,20 +25,20 @@ for i in range(len(input_list[0])):
     else:
         gamma += '0'
 
-print(gamma)
+print(f'{gamma=}')
 gamma_decimal = int(gamma,2)
-print(gamma_decimal)
+print(f'{gamma_decimal=}')
 
 for i in range(len(gamma)):
     epsilon += str(abs(int(gamma[i])-1))
 
-print(epsilon)
+print(f'{epsilon=}')
 epsilon_decimal = int(epsilon,2)
-print(epsilon_decimal)
+print(f'{epsilon_decimal=}')
 
 power_cons = gamma_decimal*epsilon_decimal
 
-print(power_cons)
+print(f'{power_cons=}')
 
 '''Part 2'''
 
@@ -51,24 +50,22 @@ while len(df) > 1:
 
     df['char_x'] = df['raw_input'].str[character]
     counts = df['char_x'].value_counts()
-    counts
     if int(counts.loc['1']) >= int(counts.loc['0']):
         target = '1'
     else:
         target = '0'
     df = df.loc[df['char_x'] == target]
 
-    len(df)
+    print(f'df is down to {len(df)}')
 
     character += 1
     if character > len(input_list[0]):
         character = 0
-    character
 
 oxygen_binary = df['raw_input'].values[0]
-oxygen_binary
+print(f'{oxygen_binary=}')
 oxygen_decimal = int(oxygen_binary,2)
-oxygen_decimal
+print(f'{oxygen_decimal=}')
 
 # co2
 
@@ -80,7 +77,6 @@ while len(df) > 1:
 
     df['char_x'] = df['raw_input'].str[character]
     counts = df['char_x'].value_counts()
-    counts
     if int(counts.loc['0']) <= int(counts.loc['1']):
         target = '0'
     else:
@@ -89,17 +85,18 @@ while len(df) > 1:
 
     len(df)
 
+    print(f'df is down to {len(df)}')
+
     character += 1
     if character > len(input_list[0]):
         character = 0
-    character
 
 co2_binary = df['raw_input'].values[0]
-co2_binary
+print(f'{co2_binary=}')
 co2_decimal = int(co2_binary,2)
-co2_decimal
+print(f'{co2_decimal=}')
 
 # result
 
 life_support = oxygen_decimal*co2_decimal
-life_support
+print(f'{life_support=}')
