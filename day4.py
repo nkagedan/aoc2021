@@ -17,10 +17,11 @@ df = pd.DataFrame(input_list, columns =['raw_input'])
 call_list = df['raw_input'][0].split(',')
 
 df = df[2:].reset_index()
-
+df
 # Generate bingo boards
 
 bingo_boards = []
+
 
 counter = 0
 for i in list(range(len(df)))[::6]:
@@ -45,29 +46,26 @@ win_num = int(win_call[-1])
 unmarked = [int(i) for i in win_board.stack().tolist() if i not in win_call]
 sum(unmarked) * win_num
 
-len(bingo_boards)
-bingo_boards.remove(bingo_boards[1])
-bingo_boards[1]
-
 
 '''Part 2'''
 
-def find_loser(numbers, boards):
-    winners = []
-    for i in range(len(numbers)):
-        boards = [x for x in boards if x not in winners]
-        print(f'{len(boards)=}')
-        print(f'{len(winners)=}')
-        if len(boards) == 0:
-            return (winners[-1], current_call)
-        current_call = numbers[:i+1]
-        for board in boards:
-            for x in range(0,5):
-                if (all(item in current_call for item in board.iloc[x].tolist())) or (all(item in current_call for item in board[x].tolist())):
-                    winners.append(board)
-                    print(f'{len(winners)=}')
-                    print('added board to winners')
+series = pd.Series(bingo_boards)
+boards_df = pd.DataFrame(series)
 
-lose_board, lose_call = find_loser(call_list,bingo_boards)
+def calls_to_win(board):
+    call_count = 1
+    for i in range(len(call_list)):
+        current_call = call_list[:i+1]
+        for x in range(0,5):
+            if (all(item in current_call for item in board.iloc[x].tolist())) or (all(item in current_call for item in board[x].tolist())):
+                return call_count
+        call_count +=1
 
-lose_board
+boards_df['calls'] = boards_df[0].apply(calls_to_win)
+boards_df.sort_values(by='calls', ascending=False, inplace=True)
+loser_board = boards_df.iloc[0,0]
+loser_calls = boards_df.iloc[0,1]
+loser_call = int(call_list[loser_calls-1])
+value_sum = sum([int(i) for i in loser_board.stack().tolist() if i not in call_list[:loser_calls]])
+result = value_sum * loser_call
+print(f'{result=}')
