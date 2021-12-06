@@ -10,17 +10,17 @@ with open(file, 'r') as file:
 input_list = data.splitlines()
 df = pd.DataFrame(input_list, columns =['raw_input'])
 
-df
-
-df['split'] = df['raw_input'].str.split(pat=',')
-df['x1']=df['split1'].astype(str).str[0]
-df['x1']=df['split1'].str[0]
-df['y1']=df['split1'][1].split(' -> ')[0]
-df['x2']=df['split1'][1].split(' -> ')[1]
-
-df['raw_input'][1].split()
 '''Part 1'''
 
+df['split'] = df['raw_input'].str.split(pat=',')
+df['x1']=df['raw_input'].str.split(pat=',').str[0].astype(int)
+df['y1']=df['raw_input'].str.split(pat=',').str[1].str.split(pat=' -> ').str[0].astype(int)
+df['x2']=df['raw_input'].str.split(pat=',').str[1].str.split(pat=' -> ').str[1].astype(int)
+df['y2']=df['raw_input'].str.split(pat=',').str[2].astype(int)
+
+
+df = df.loc[(df['x1'] == df['x2']) | (df['y1'] == df['y2'])]
+df
 
 
 '''Part 2'''
