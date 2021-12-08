@@ -3,7 +3,7 @@
 import pandas as pd
 import numpy as np
 
-file = 'input5test.txt'
+file = 'input5.txt'
 
 with open(file, 'r') as file:
     data = file.read().strip()
@@ -20,8 +20,6 @@ def plot_line(row):
         grid.iloc[row['y1'],min(row[['x1','x2']]):max(row[['x1','x2']])+1] +=1
     else:
         pass
-
-list(range(9,0))
 
 
 df['x1']=df['raw_input'].str.split(pat=',').str[0].astype(int)
@@ -46,7 +44,6 @@ for index, row in grid.iterrows():
 print(f'Part 1 result = {result}')
 
 
-
 '''Part 2'''
 
 def plot_line2(row):
@@ -56,15 +53,14 @@ def plot_line2(row):
         grid.iloc[row['y1'],min(row[['x1','x2']]):max(row[['x1','x2']])+1] +=1
     else:
         if row.y1 < row.y2:
-            ys = list(range(row.y1, row.y2,1))
+            ys = list(range(row.y1, row.y2+1,1))
         else:
-            ys = list(range(row.y1, row.y2,-1))
+            ys = list(range(row.y1, row.y2-1,-1))
         if row.x1 < row.x2:
-            xs = list(range(row.x1, row.x2,1))
+            xs = list(range(row.x1, row.x2+1,1))
         else:
-            xs = list(range(row.x1, row.x2,-1))
+            xs = list(range(row.x1, row.x2-1,-1))
         coordinates = list(zip(ys, xs))
-        print(coordinates)
         for i in coordinates:
             grid.iat[i[0], i[1]] += 1
 
