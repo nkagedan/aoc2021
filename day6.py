@@ -15,7 +15,7 @@ input_list = [int(i) for i in data.split(',')]
 
 #<codecell>
 
-'''Part 1'''
+'''Parts 1 and 2''' 
 
 days = 256
 
