@@ -10,7 +10,7 @@ pp = pprint.PrettyPrinter(indent=4)
 
 
 
-file = 'input8test.txt'
+file = 'input8.txt'
 
 with open(file, 'r') as file:
     data = file.read().strip()
@@ -32,7 +32,7 @@ for i in input_list:
         if len(x) in unique_char_counts:
             count += 1
 
-print(count)
+print(f'part 1 result = {count}')
 
 
 #<codecell>
@@ -40,7 +40,6 @@ print(count)
 '''Part 2'''
 
 def find_output_value(entry):
-    print(entry)
 
     digit_key = {}
     decoder_digits = entry.split('|')[0].strip().split()
@@ -49,9 +48,18 @@ def find_output_value(entry):
     digit_key[7] = [list(sorted(i)) for i in decoder_digits if len(i) == 3][0]
     digit_key[8] = [list(sorted(i)) for i in decoder_digits if len(i) == 7][0]
     digit_key[3] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in list(i) for elem in digit_key[7])][0]
-    digit_key[9] = list(sorted(''.join(set(digit_key[4]+digit_key[7]+digit_key[3]))))
+    digit_key[9] = list(sorted(''.join(set(digit_key[4]+digit_key[3]))))
+
+    digit_key[0] = [list(sorted(i)) for i in decoder_digits if (len(i) == 6) and (all(elem in list(i) for elem in digit_key[1])) and (list(sorted(i)) not in digit_key.values())][0]
     digit_key[6] = [list(sorted(i)) for i in decoder_digits if len(i) == 6 and list(sorted(i)) not in digit_key.values()][0]
-    digit_key[5] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in digit_key[6] for elem in list(i))][0]
+    #solve 5
+    candidates = [list(sorted(i)) for i in decoder_digits if len(i) == 5]
+    for i in candidates:
+        if all([elem in digit_key[6] for elem in list(i)]):
+            digit_key[5] = sorted(i)
+
+
+    #digit_key[5] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in digit_key[6] for elem in list(i))][0]
     digit_key[2] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and list(sorted(i)) not in digit_key.values()][0]
 
     #pp.pprint(digit_key)
@@ -67,14 +75,15 @@ def find_output_value(entry):
 
     return result
 
-final_result = sum([find_output_value(i) for i in input_list[:3]])
+final_result = sum([find_output_value(i) for i in input_list])
 
-print(f'{final_result=}')
-
-
+print(f'part 2 result = {final_result}')
 
 
-
+'''
+guesses:
+698457 too low
+'''
 
 
 
