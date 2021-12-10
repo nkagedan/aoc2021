@@ -54,10 +54,7 @@ def find_output_value(entry):
     digit_key[5] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in digit_key[6] for elem in list(i))][0]
     digit_key[2] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and list(sorted(i)) not in digit_key.values()][0]
 
-
-
     #pp.pprint(digit_key)
-
     output_digits = entry.split('|')[1].strip().split()
     output_digits
     output_numbers = []
@@ -70,7 +67,7 @@ def find_output_value(entry):
 
     return result
 
-final_result = sum([find_output_value(i) for i in input_list])
+final_result = sum([find_output_value(i) for i in input_list[:3]])
 
 print(f'{final_result=}')
 
