@@ -19,7 +19,7 @@ input_list = data.splitlines()
 #input_list = [int(i) for i in data.split(',')]
 #df = pd.DataFrame(input_list, columns =['raw_input'])
 #<codecell>
-
+len(input_list)
 '''Part 1'''
 
 unique_char_counts = [2, 4, 3, 7]
@@ -48,19 +48,30 @@ def find_output_value(entry):
     digit_key[7] = [list(sorted(i)) for i in decoder_digits if len(i) == 3][0]
     digit_key[8] = [list(sorted(i)) for i in decoder_digits if len(i) == 7][0]
     digit_key[3] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in list(i) for elem in digit_key[7])][0]
+    if len([list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in list(i) for elem in digit_key[7])])>1:
+        print(f'problem for 3 at {entry}')
     digit_key[9] = list(sorted(''.join(set(digit_key[4]+digit_key[3]))))
 
     digit_key[0] = [list(sorted(i)) for i in decoder_digits if (len(i) == 6) and (all(elem in list(i) for elem in digit_key[1])) and (list(sorted(i)) not in digit_key.values())][0]
+    if len([list(sorted(i)) for i in decoder_digits if (len(i) == 6) and (all(elem in list(i) for elem in digit_key[1])) and (list(sorted(i)) not in digit_key.values())])>1:
+        print(f'problem for 0 at {entry}')
+
     digit_key[6] = [list(sorted(i)) for i in decoder_digits if len(i) == 6 and list(sorted(i)) not in digit_key.values()][0]
+    if len([list(sorted(i)) for i in decoder_digits if len(i) == 6 and list(sorted(i)) not in digit_key.values()])>1:
+        print(f'problem for 6 at {entry}')
     #solve 5
-    candidates = [list(sorted(i)) for i in decoder_digits if len(i) == 5]
+    '''candidates = [list(sorted(i)) for i in decoder_digits if len(i) == 5]
     for i in candidates:
         if all([elem in digit_key[6] for elem in list(i)]):
-            digit_key[5] = sorted(i)
+            digit_key[5] = sorted(i)'''
 
 
-    #digit_key[5] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in digit_key[6] for elem in list(i))][0]
+    digit_key[5] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in digit_key[6] for elem in list(i))][0]
+    if len([list(sorted(i)) for i in decoder_digits if len(i) == 5 and all(elem in digit_key[6] for elem in list(i))])>1:
+        print(f'problem for 5 at {entry}')
     digit_key[2] = [list(sorted(i)) for i in decoder_digits if len(i) == 5 and list(sorted(i)) not in digit_key.values()][0]
+    if len([list(sorted(i)) for i in decoder_digits if len(i) == 5 and list(sorted(i)) not in digit_key.values()])>1:
+        print(f'problem for 2 at {entry}')
 
     #pp.pprint(digit_key)
     output_digits = entry.split('|')[1].strip().split()
