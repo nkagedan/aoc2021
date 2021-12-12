@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import pprint
 pp = pprint.PrettyPrinter(indent=4)
-file = 'input9.txt'
+file = 'input9test.txt'
 
 with open(file, 'r') as file:
     data = file.read().strip()
@@ -18,8 +18,8 @@ df = pd.DataFrame(input_list, columns =['raw_input'])
 #<codecell>
 
 '''Part 1'''
-pd.set_option('display.max_rows', 10)
-pd.set_option('display.max_columns', 10)
+pd.set_option('display.max_rows', 20)
+pd.set_option('display.max_columns', 20)
 
 
 df = pd.DataFrame(np.zeros([len(input_list),len(input_list[0])], dtype=int))
@@ -48,18 +48,32 @@ print(f'{df.shape=}, {cells_checked=}')
 
 '''Part 2'''
 
-df
+df.shape
 
+
+def find_basin_size(coordinates, visited, df, basin_size):
+    print(coordinates)
+    y = coordinates[0]
+    x = coordinates[1]
+    print(f'{df.iat[y,x]=}')
+    print(f'{visited=}')
+    if coordinates not in visited and df.iat[y,x] != 9:
+        print('triggered "if" statement')
+        basin_size += 1
+        print(f'{basin_size=}')
+        visited.append(coordinates)
+        neighbors = [[max(0,y-1),x],[min(df.shape[0]-1,y+1),x],[y,max(0,x-1)],[y,min(df.shape[1]-1,x+1)]]
+        for neighbor in neighbors:
+            find_basin_size(neighbor, visited,df,basin_size)
+        print(f'about to return {basin_size=}')
+        return basin_size
+
+#<codecell>
 visited = []
 basin_size = 0
 
-def find_basin_size(coordinates,visited,df):
-    if coordinates not in visited and df.iat[coordinates] != 9:
-        basin_size += 1
-        visited.append(coordinates)
-        search_area = df.iloc[max(0,(y-1)):(y+2),max(0,(x-1)):(x+2)]
-        for neighbor in search_area:
-            find_basin_size(neighbor)
+x = print(find_basin_size([3,1],visited,df, basin_size))
+print(x)
 
 
 
