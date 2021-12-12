@@ -52,33 +52,34 @@ df.shape
 df
 
 def find_basin_size(coordinates, visited, df, basin_size):
-    pass
-    print(f'{basin_size=}')
-    print(coordinates)
+    print(f'about to start checking: {coordinates}; current basin size is {basin_size}')
     y = coordinates[0]
     x = coordinates[1]
-    print(f'{df.iat[y,x]=}')
-    print(f'{visited=}')
+    print(f'value at this location is {df.iat[y,x]}')
+    print(f'locations we have visited before now are: {visited=}')
     if coordinates not in visited and df.iat[y,x] != 9:
-        pass
-        print('triggered "if" statement')
+        print('triggered "if" statement, will now increment basin_size')
         basin_size += 1
-        print(f'after increment, {basin_size=}')
+        print(f'after increment, {basin_size=}; adding these coordinates to "visited"')
         visited.append(coordinates)
         neighbors = [[max(0,y-1),x],[min(df.shape[0]-1,y+1),x],[y,max(0,x-1)],[y,min(df.shape[1]-1,x+1)]]
+        print(f'neighbors to check: {neighbors=}')
         for neighbor in neighbors:
             pass
             basin_size += int(find_basin_size(neighbor, visited, df, basin_size))
+        print(f'done with for loop from {coordinates=}')
+    else:
+        print(f'did not trigger is statement, so will return at current basin_size - {basin_size=}')
 
-        print(f'about to return {basin_size=}')
-        return basin_size
+    print(f'about to return {basin_size=}')
+    return basin_size
 
 #<codecell>
 visited = []
 basin_size = 0
 x=0
 
-x = find_basin_size([3,1], visited, df, basin_size)
+x = find_basin_size([0,0], visited, df, basin_size)
 print(x)
 
 
