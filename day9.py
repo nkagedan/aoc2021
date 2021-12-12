@@ -49,30 +49,36 @@ print(f'{df.shape=}, {cells_checked=}')
 '''Part 2'''
 
 df.shape
-
+df
 
 def find_basin_size(coordinates, visited, df, basin_size):
+    pass
+    print(f'{basin_size=}')
     print(coordinates)
     y = coordinates[0]
     x = coordinates[1]
     print(f'{df.iat[y,x]=}')
     print(f'{visited=}')
     if coordinates not in visited and df.iat[y,x] != 9:
+        pass
         print('triggered "if" statement')
         basin_size += 1
-        print(f'{basin_size=}')
+        print(f'after increment, {basin_size=}')
         visited.append(coordinates)
         neighbors = [[max(0,y-1),x],[min(df.shape[0]-1,y+1),x],[y,max(0,x-1)],[y,min(df.shape[1]-1,x+1)]]
         for neighbor in neighbors:
-            find_basin_size(neighbor, visited,df,basin_size)
+            pass
+            basin_size += int(find_basin_size(neighbor, visited, df, basin_size))
+
         print(f'about to return {basin_size=}')
         return basin_size
 
 #<codecell>
 visited = []
 basin_size = 0
+x=0
 
-x = print(find_basin_size([3,1],visited,df, basin_size))
+x = find_basin_size([3,1], visited, df, basin_size)
 print(x)
 
 
