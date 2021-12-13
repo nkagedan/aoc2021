@@ -91,13 +91,13 @@ def find_basin_size_inc(coordinates, visited, df, basin_size):
     print(f'locations we have visited before now are: {visited=}\n')
     if coordinates not in visited and df.iat[y,x] != 9:
         print('triggered "if" statement, will now increment basin_size\n')
-        basin_size += 1
         print(f'{basin_size=} after increment; adding these coordinates to "visited"\n')
         visited.append(coordinates)
         neighbors = [[max(0,y-1),x],[min(df.shape[0]-1,y+1),x],[y,max(0,x-1)],[y,min(df.shape[1]-1,x+1)]]
         print(f'neighbors to check: {neighbors=}\n')
         for neighbor in neighbors:
             basin_size += int(find_basin_size_inc(neighbor, visited, df, basin_size))
+        basin_size += 1
         print(f'done with for loop from {coordinates=} and proceeding to return basin_size\n')
     else:
         print(f'did not trigger if statement, so will return 0\n')
@@ -105,10 +105,10 @@ def find_basin_size_inc(coordinates, visited, df, basin_size):
 
     print(f'about to return {basin_size=}\n')
     return basin_size
-
+df
 visited = []
 basin_size = 0
 x=0
 
-x = find_basin_size_inc([0,0], visited, df, basin_size)
+x = find_basin_size_inc([3,1], visited, df, basin_size)
 print(x)
