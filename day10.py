@@ -22,6 +22,9 @@ input_list = data.splitlines()
 input_list
 
 character_sets = {'(':')','[':']','{':'}','<':'>'}
+df=pd.DataFrame(character_sets)
+
+
 pp.pprint(character_sets)
 
 for i in input_list:
