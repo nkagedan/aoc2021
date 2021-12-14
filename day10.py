@@ -27,6 +27,7 @@ char_sets = {
     '>':'<'
 }
 
+reverse_char_sets = {value:key for key, value in char_sets.items()}
 
 char_vals = {
     ')': 3,
@@ -35,7 +36,15 @@ char_vals = {
     '>': 25137
 }
 
-print(json.dumps(char_sets, indent=4))
+completion_vals = {
+    ')': 1,
+    ']': 2,
+    '}': 3,
+    '>': 4
+}
+#print(json.dumps(char_sets, indent=4))
+
+
 
 def find_errors(line):
     opened_stack = []
@@ -48,19 +57,41 @@ def find_errors(line):
                 return None
             else:
                 opened_stack.pop()
+    incomplete_lines.append((line, opened_stack))
 
 error_chars = []
 
-for i in input_list:
-    find_errors(i)
-
-result = sum([char_vals[i] for i in error_chars])
-
-print(result)
 
 #<codecell>
 
 '''Part 2'''
+
+incomplete_lines = []
+
+for i in input_list:
+    find_errors(i)
+
+result1 = sum([char_vals[i] for i in error_chars])
+
+print(f'{result1=}')
+
+scores = []
+
+incomplete_lines
+
+for i in incomplete_lines:
+    completion_chars = [reverse_char_sets[x] for x in i[1][::-1]]
+    print(completion_chars)
+    score = 0
+    for x in completion_chars:
+        score = (score * 5) + completion_vals[x]
+    scores.append(score)
+
+scores
+
+result2 = sorted(scores)[int((len(scores)-1)/2)]
+
+print(f'{result2=}')
 
 
 #<codecell>
