@@ -3,8 +3,12 @@
 
 import pandas as pd
 import numpy as np
+import os
+from dotenv import load_dotenv
 
-file = 'input6.txt'
+load_dotenv()
+
+file = os.environ['filename']
 
 with open(file, 'r') as file:
     data = file.read().strip()
@@ -15,7 +19,7 @@ input_list = [int(i) for i in data.split(',')]
 
 #<codecell>
 
-'''Parts 1 and 2''' 
+'''Parts 1 and 2'''
 
 days = 256
 
